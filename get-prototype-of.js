@@ -66,10 +66,12 @@
         function $GetPrototypeOf$(object)
         {
             var constructor = $GetOwnProperty$(object, "constructor")
+            if ($IsPrimitive$(constructor)) return null
 
-            return $IsPrimitive$(constructor)
-                ? null
-                : constructor.prototype || null
+            var prototype = constructor.prototype
+            if ($IsPrimitive$(prototype)) return null
+
+            return prototype
         }
 
         ///
