@@ -6,7 +6,7 @@
         return Function.prototype
 
     var PROTO = "__proto__"
-    if (PROTO in { })
+    if (PROTO in Object.prototype)
     {
         return function(global)
         {
