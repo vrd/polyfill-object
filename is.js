@@ -2,13 +2,13 @@
 {
     "use strict"
 
-    var IS = "is"
-    if (IS in Object) return Function.prototype
+    if (typeof Object.is == "function")
+        return Function.prototype
 
     return function(global)
     {
         var _Object_ = global.Object
-            _Object_.defineProperty(_Object_, IS,
+            _Object_.defineProperty(_Object_, "is",
             {
                 value: function(x, y)
                 {

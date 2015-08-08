@@ -2,8 +2,8 @@
 {
     "use strict"
 
-    var ASSIGN = "assign"
-    if (ASSIGN in Object) return Function.prototype
+    if (typeof Object.assign == "function")
+        return Function.prototype
 
     return function(global)
     {
@@ -16,7 +16,7 @@
 
         ///
 
-        _Object_.defineProperty(_Object_, ASSIGN,
+        _Object_.defineProperty(_Object_, "assign",
         {
             value: function(target, sources)
             {

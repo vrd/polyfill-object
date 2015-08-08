@@ -2,8 +2,8 @@
 {
     "use strict"
 
-    var GET_PROTO = "getPrototypeOf"
-    if (GET_PROTO in Object) return Function.prototype
+    if (typeof Object.getPrototypeOf == "function")
+        return Function.prototype
 
     return function(global)
     {
@@ -76,7 +76,7 @@
 
         ///
 
-        $Define$(_Object_, GET_PROTO,
+        $Define$(_Object_, "getPrototypeOf",
         {
             value: function(target)
             {
