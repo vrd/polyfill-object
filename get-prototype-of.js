@@ -67,9 +67,9 @@
         {
             value: function(target)
             {
-                if (null == target) throw new global.TypeError()
+                if ($IsPrimitive$(target)) throw new global.TypeError()
 
-                return $GetPrototypeOf$(_Object_(target))
+                return $GetPrototypeOf$(target)
             },
             writable: true,
             configurable: true
