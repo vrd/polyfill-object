@@ -15,6 +15,19 @@
 
         ///
 
+        function $IsPrimitive$(value)
+        {
+            switch (typeof value)
+            {
+                case "boolean":
+                case "number":
+                case "string":
+                    return true
+            }
+
+            return null == value
+        }
+
         function $GetOwnProperty$(object, name)
         {
             if (!(name in object)) return
@@ -52,7 +65,11 @@
 
         function $GetPrototypeOf$(object)
         {
-            return $GetOwnProperty$(object, "constructor").prototype
+            var constructor = $GetOwnProperty$(object, "constructor")
+
+            return $IsPrimitive$(constructor)
+                ? null
+                : constructor.prototype || null
         }
 
         ///
