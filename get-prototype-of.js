@@ -15,7 +15,7 @@
 
         ///
 
-        function $GetOwnProperty$(object, name)
+        function $GetPrototypeValue$(object, name)
         {
             if (!(name in object)) return
 
@@ -52,7 +52,7 @@
 
         function $GetPrototypeOf$(object)
         {
-            var constructor = $GetOwnProperty$(object, "constructor")
+            var constructor = $GetPrototypeValue$(object, "constructor")
             if ($IsPrimitive$(constructor)) return null
 
             var prototype = constructor.prototype
