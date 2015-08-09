@@ -16,11 +16,13 @@
                 .getOwnPropertyDescriptor(_Object_.prototype, PROTO)
                 .set
 
-            Object.defineProperty(_Object_, "setPrototypeOf",
+            ///
+
+            _Object_.defineProperty(_Object_, "setPrototypeOf",
             {
                 value: function setPrototypeOf(target, prototype)
                 {
-                    if (null == target)
+                    if (target == null)
                         throw new global.TypeError()
 
                     if (!$IsObjectOrNull$(prototype))
