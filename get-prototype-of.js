@@ -10,8 +10,8 @@
         var _Object_ = global.Object
           , _ObjectPrototype_ = _Object_.prototype
 
-        var $GetOwn$ = _Object_.getOwnPropertyDescriptor
-          , $Define$ = _Object_.defineProperty
+        var $Define$ = _Object_.defineProperty
+          , $GetDescriptor$ = _Object_.getOwnPropertyDescriptor
 
         var $HasOwn$ = _ObjectPrototype_.hasOwnProperty
           , $IsPrototype$ = _ObjectPrototype_.isPrototypeOf
@@ -28,7 +28,7 @@
                 {
                     try
                     {
-                        var descriptor = $GetOwn$(object, name)
+                        var descriptor = $GetDescriptor$(object, name)
                     }
                     catch (error)
                     {
