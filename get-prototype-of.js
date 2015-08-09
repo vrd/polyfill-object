@@ -8,10 +8,13 @@
     return function(global)
     {
         var _Object_ = global.Object
+          , _ObjectPrototype_ = _Object_.prototype
 
-        var $HasOwn$ = _Object_.prototype.hasOwnProperty
         var $GetOwn$ = _Object_.getOwnPropertyDescriptor
-        var $Define$ = _Object_.defineProperty
+          , $Define$ = _Object_.defineProperty
+
+        var $HasOwn$ = _ObjectPrototype_.hasOwnProperty
+          , $IsPrototype$ = _ObjectPrototype_.isPrototypeOf
 
         ///
 
@@ -31,10 +34,8 @@
                     {
                         var value = object[name]
                     }
-                    finally
-                    {
-                        delete object[name]
-                    }
+
+                    delete object[name]
                 }
 
                 return object[name]
@@ -57,8 +58,9 @@
 
             var prototype = constructor.prototype
             if ($IsPrimitive$(prototype)) return null
+            if ($IsPrototype$.call(prototype, object)) return prototype
 
-            return prototype
+            return null
         }
 
         ///
