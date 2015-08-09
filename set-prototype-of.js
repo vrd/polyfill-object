@@ -16,9 +16,9 @@
                 .getOwnPropertyDescriptor(_Object_.prototype, PROTO)
                 .set
 
-            Object.defineProperty(_Object_, SET_PROTO,
+            Object.defineProperty(_Object_, "setPrototypeOf",
             {
-                value: function(target, prototype)
+                value: function setPrototypeOf(target, prototype)
                 {
                     if (null == target)
                         throw new global.TypeError()
@@ -38,6 +38,8 @@
             })
         }
     }
+
+    ///
 
     function $IsObjectOrNull$(value)
     {

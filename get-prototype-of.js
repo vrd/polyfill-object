@@ -67,7 +67,7 @@
 
         $Define$(_Object_, "getPrototypeOf",
         {
-            value: function(target)
+            value: function getPrototypeOf(target)
             {
                 if ($IsPrimitive$(target)) throw new global.TypeError()
 

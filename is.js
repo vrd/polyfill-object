@@ -10,7 +10,7 @@
         var _Object_ = global.Object
             _Object_.defineProperty(_Object_, "is",
             {
-                value: function(x, y)
+                value: function is(x, y)
                 {
                     if (x === 0 && y === 0)
                         return 1 / x === 1 / y

@@ -16,7 +16,7 @@
 
         _Object_.defineProperty(_Object_, "keys",
         {
-            value: function(target)
+            value: function keys(target)
             {
                 return $GetOwn$(target).filter(function(name)
                 {

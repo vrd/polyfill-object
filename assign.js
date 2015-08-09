@@ -18,9 +18,9 @@
 
         _Object_.defineProperty(_Object_, "assign",
         {
-            value: function(target, sources)
+            value: function assign(target, sources)
             {
-                if (null == target) throw new global.TypeError()
+                if (target == null) throw new global.TypeError()
 
                 var to = _Object_(target)
 
