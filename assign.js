@@ -24,8 +24,6 @@
 
                 var to = _Object_(target)
 
-                if (arguments.length == 1) return to
-
                 for (var index = 1; index < arguments.length; ++index)
                 {
                     var source = arguments[index]
