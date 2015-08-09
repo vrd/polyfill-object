@@ -20,24 +20,20 @@
 
         function $GetPrototypeValue$(object, name)
         {
-            if (!(name in object)) return
+            if (!$HasOwn$.call(object, name)) return object[name]
 
             try
             {
-                if ($HasOwn$.call(object, name))
+                try
                 {
-                    try
-                    {
-                        var descriptor = $GetDescriptor$(object, name)
-                    }
-                    catch (error)
-                    {
-                        var value = object[name]
-                    }
-
-                    delete object[name]
+                    var descriptor = $GetDescriptor$(object, name)
+                }
+                catch (error)
+                {
+                    var value = object[name]
                 }
 
+                delete object[name]
                 return object[name]
             }
             catch (error)
@@ -46,8 +42,11 @@
             }
             finally
             {
-                if (descriptor) $Define$(object, name, descriptor)
-                else object[name] = value
+                if (descriptor)
+                    if (descriptor.configurable)
+                        $Define$(object, name, descriptor)
+                else
+                    object[name] = value
             }
         }
 
