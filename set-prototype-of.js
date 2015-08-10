@@ -10,15 +10,15 @@
     {
         return function(global)
         {
-            var _Object_ = global.Object
+            var $Object$ = global.Object
 
-            var $SetPrototypeOf$ = _Object_
-                .getOwnPropertyDescriptor(_Object_.prototype, PROTO)
+            var $SetPrototypeOf$ = $Object$
+                .getOwnPropertyDescriptor($Object$.prototype, PROTO)
                 .set
 
             ///
 
-            _Object_.defineProperty(_Object_, "setPrototypeOf",
+            $Object$.defineProperty($Object$, "setPrototypeOf",
             {
                 value: function setPrototypeOf(target, prototype)
                 {

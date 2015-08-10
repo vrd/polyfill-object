@@ -7,14 +7,13 @@
 
     return function(global)
     {
-        var _Object_ = global.Object
-
-        var $GetOwn$ = _Object_.getOwnPropertyNames
-          , $IsEnumerable$ = _Object_.prototype.propertyIsEnumerable
+        var $Object$ = global.Object
+          , $GetOwn$ = $Object$.getOwnPropertyNames
+          , $IsEnumerable$ = $Object$.prototype.propertyIsEnumerable
 
         ///
 
-        _Object_.defineProperty(_Object_, "keys",
+        $Object$.defineProperty($Object$, "keys",
         {
             value: function keys(target)
             {

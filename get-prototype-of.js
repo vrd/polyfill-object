@@ -7,11 +7,11 @@
 
     return function(global)
     {
-        var _Object_ = global.Object
-          , _ObjectPrototype_ = _Object_.prototype
+        var $Object$ = global.Object
+          , _ObjectPrototype_ = $Object$.prototype
 
-        var $Define$ = _Object_.defineProperty
-          , $GetDescriptor$ = _Object_.getOwnPropertyDescriptor
+        var $Define$ = $Object$.defineProperty
+          , $GetDescriptor$ = $Object$.getOwnPropertyDescriptor
 
         var $HasOwn$ = _ObjectPrototype_.hasOwnProperty
           , $IsPrototype$ = _ObjectPrototype_.isPrototypeOf
@@ -64,11 +64,12 @@
 
         ///
 
-        $Define$(_Object_, "getPrototypeOf",
+        $Define$($Object$, "getPrototypeOf",
         {
             value: function getPrototypeOf(target)
             {
-                if ($IsPrimitive$(target)) throw new global.TypeError()
+                if ($IsPrimitive$(target))
+                    throw new global.TypeError()
 
                 return $GetPrototypeOf$(target)
             },

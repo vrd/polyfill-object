@@ -7,8 +7,8 @@
 
     return function(global)
     {
-        var _Object_ = global.Object
-            _Object_.defineProperty(_Object_, "is",
+        var $Object$ = global.Object
+            $Object$.defineProperty($Object$, "is",
             {
                 value: function is(x, y)
                 {

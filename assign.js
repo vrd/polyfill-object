@@ -7,29 +7,29 @@
 
     return function(global)
     {
-        var _Object_ = global.Object
+        var $Object$ = global.Object
 
-        var $OwnStrings$ = _Object_.getOwnPropertyNames
-          , $OwnSymbols$ = _Object_.getOwnPropertySymbols
+        var $OwnStrings$ = $Object$.getOwnPropertyNames
+          , $OwnSymbols$ = $Object$.getOwnPropertySymbols
 
-        var $IsEnumerable$ = _Object_.prototype.propertyIsEnumerable
+        var $IsEnumerable$ = $Object$.prototype.propertyIsEnumerable
 
         ///
 
-        _Object_.defineProperty(_Object_, "assign",
+        $Object$.defineProperty($Object$, "assign",
         {
             value: function assign(target, sources)
             {
                 if (target == null) throw new global.TypeError()
 
-                var to = _Object_(target)
+                var to = $Object$(target)
 
                 for (var index = 1; index < arguments.length; ++index)
                 {
                     var source = arguments[index]
                     if (source == null) continue
 
-                    var from = _Object_(source)
+                    var from = $Object$(source)
                       , keys = $OwnStrings$(from).concat(
                         typeof $OwnSymbols$ == "function"
                             && $OwnSymbols$(from)
