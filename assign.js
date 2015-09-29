@@ -10,7 +10,7 @@
         var $Object$ = global.Object
 
         var $OwnStrings$ = $Object$.getOwnPropertyNames
-          , $OwnSymbols$ = $Object$.getOwnPropertySymbols
+        var $OwnSymbols$ = $Object$.getOwnPropertySymbols
 
         var $IsEnumerable$ = $Object$.prototype.propertyIsEnumerable
 
@@ -30,7 +30,8 @@
                     if (source == null) continue
 
                     var from = $Object$(source)
-                      , keys = $OwnStrings$(from).concat(
+                    var keys = $OwnStrings$(from).concat
+                    (
                         typeof $OwnSymbols$ == "function"
                             && $OwnSymbols$(from)
                             || [ ]
