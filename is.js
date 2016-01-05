@@ -24,14 +24,6 @@
             writable: true,
             configurable: true
         })
-
-        if (is.hasOwnProperty("name")) return
-
-        Object.defineProperty(is, "name",
-        {
-            value: "is",
-            configurable: true
-        })
     }
 
     module.exports =
