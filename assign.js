@@ -7,45 +7,42 @@
 
     return function(global)
     {
-        var $Object$ = global.Object
+        var $OwnNames$ = Object.getOwnPropertyNames
+          , $OwnSymbols$ = Object.getOwnPropertySymbols
+          , $IsEnumerable$ = Object.prototype.propertyIsEnumerable
 
-        var $OwnStrings$ = $Object$.getOwnPropertyNames
-        var $OwnSymbols$ = $Object$.getOwnPropertySymbols
-
-        var $IsEnumerable$ = $Object$.prototype.propertyIsEnumerable
-
-        ///
-
-        $Object$.defineProperty($Object$, "assign",
+        function assign(target, sources)
         {
-            value: function assign(target, sources)
+            if (target == null) throw new global.TypeError
+
+            var to = Object(target)
+
+            for (var index = 1; index < arguments.length; ++index)
             {
-                if (target == null) throw new global.TypeError()
+                var source = arguments[index]
+                if (source == null) continue
 
-                var to = $Object$(target)
+                var from = Object(source)
+                var keys = $OwnNames$(from).concat
+                (
+                    typeof $OwnSymbols$ == "function"
+                        && $OwnSymbols$(from)
+                        || [ ]
+                )
 
-                for (var index = 1; index < arguments.length; ++index)
+                keys.forEach(function(key)
                 {
-                    var source = arguments[index]
-                    if (source == null) continue
+                    if ($IsEnumerable$.call(from, key))
+                        to[key] = from[key]
+                })
+            }
 
-                    var from = $Object$(source)
-                    var keys = $OwnStrings$(from).concat
-                    (
-                        typeof $OwnSymbols$ == "function"
-                            && $OwnSymbols$(from)
-                            || [ ]
-                    )
+            return to
+        }
 
-                    keys.forEach(function(key)
-                    {
-                        if ($IsEnumerable$.call(from, key))
-                            to[key] = from[key]
-                    })
-                }
-
-                return to
-            },
+        Object.defineProperty(global.Object, "assign",
+        {
+            value: assign,
             writable: true,
             configurable: true
         })
