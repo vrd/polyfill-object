@@ -3,9 +3,9 @@
     "use strict"
 
     if (typeof Object.assign == "function")
-        return Function.prototype
+        return module.exports = Function.prototype
 
-    return function(global)
+    function polyfill(global)
     {
         var $OwnNames$ = Object.getOwnPropertyNames
           , $OwnSymbols$ = Object.getOwnPropertySymbols
@@ -47,4 +47,8 @@
             configurable: true
         })
     }
-})()(this)
+
+    module.exports =
+        polyfill(window),
+        polyfill
+})()
