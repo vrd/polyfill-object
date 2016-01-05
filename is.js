@@ -3,9 +3,9 @@
     "use strict"
 
     if (typeof Object.is == "function")
-        return Function.prototype
+        return module.exports = Function.prototype
 
-    return function(global)
+    function polyfill(global)
     {
         function is(a, b)
         {
@@ -25,4 +25,8 @@
             configurable: true
         })
     }
-})()(this)
+
+    module.exports =
+        polyfill(window),
+        polyfill
+})()
