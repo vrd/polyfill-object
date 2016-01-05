@@ -7,21 +7,22 @@
 
     return function(global)
     {
-        var $Object$ = global.Object
-            $Object$.defineProperty($Object$, "is",
-            {
-                value: function is(x, y)
-                {
-                    if (x === 0 && y === 0)
-                        return 1 / x === 1 / y
+        function is(a, b)
+        {
+            if (a === 0 && b === 0)
+                return 1 / a === 1 / b
 
-                    if (x !== x && y !== y)
-                        return true
+            if (a !== a && b !== b)
+                return true
 
-                    return x === y
-                },
-                writable: true,
-                configurable: true
-            })
+            return a === b
+        }
+
+        Object.defineProperty(global.Object, "is",
+        {
+            value: is,
+            writable: true,
+            configurable: true
+        })
     }
 })()(this)
