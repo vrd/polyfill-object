@@ -7,7 +7,7 @@
 
     var $OwnNames$ = Object.getOwnPropertyNames
       , $OwnSymbols$ = Object.getOwnPropertySymbols
-      , $IsEnumerable$ = Object.prototype.propertyIsEnumerable
+      , $IsEnumerable$ = { }.propertyIsEnumerable
 
     function polyfill(global)
     {
@@ -17,9 +17,9 @@
 
             var to = Object(target)
 
-            for (var index = 1; index < arguments.length; ++index)
+            for (var index = 1; index < arguments.length ;)
             {
-                var source = arguments[index]
+                var source = arguments[index++]
                 if (source == null) continue
 
                 var from = Object(source)
