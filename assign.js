@@ -46,6 +46,14 @@
             writable: true,
             configurable: true
         })
+
+        if (assign.hasOwnProperty("name")) return
+
+        Object.defineProperty(assign, "name",
+        {
+            value: "assign",
+            configurable: true
+        })
     }
 
     module.exports =
