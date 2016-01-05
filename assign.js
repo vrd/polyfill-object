@@ -5,12 +5,12 @@
     if (typeof Object.assign == "function")
         return module.exports = Function.prototype
 
+    var $OwnNames$ = Object.getOwnPropertyNames
+      , $OwnSymbols$ = Object.getOwnPropertySymbols
+      , $IsEnumerable$ = Object.prototype.propertyIsEnumerable
+
     function polyfill(global)
     {
-        var $OwnNames$ = Object.getOwnPropertyNames
-          , $OwnSymbols$ = Object.getOwnPropertySymbols
-          , $IsEnumerable$ = Object.prototype.propertyIsEnumerable
-
         function assign(target, sources)
         {
             if (target == null) throw new global.TypeError
