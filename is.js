@@ -3,7 +3,7 @@
     "use strict"
 
     if (typeof Object.is == "function")
-        return module.exports = Function.prototype
+        return module.exports = Object
 
     function polyfill(global)
     {
@@ -24,9 +24,11 @@
             writable: true,
             configurable: true
         })
+
+        return global
     }
 
     module.exports =
-        polyfill(window),
+        polyfill(window) &&
         polyfill
 })()
