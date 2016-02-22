@@ -14,8 +14,7 @@
     {
         ownKeys = function(object)
         {
-            return ownStrings(object)
-                .concat(ownSymbols(object))
+            return ownStrings(object).concat(ownSymbols(object))
         }
     }
 
