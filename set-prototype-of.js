@@ -3,55 +3,43 @@
     "use strict"
 
     if (typeof Object.setPrototypeOf == "function")
-        return Function.prototype
+        return module.exports = Object
 
-    var PROTO = "__proto__"
-    if (PROTO in Object.prototype)
+    if ("__proto__" in Object.prototype)
     {
-        return function(global)
+        var setPrototype = Object
+            .getOwnPropertyDescriptor(Object.prototype, "__proto__")
+            .set
+
+        module.exports = function(global)
         {
-            var $Object$ = global.Object
+            var TypeError = global.TypeError
 
-            var $SetPrototypeOf$ = $Object$
-                .getOwnPropertyDescriptor($Object$.prototype, PROTO)
-                .set
-
-            ///
-
-            $Object$.defineProperty($Object$, "setPrototypeOf",
+            Object.defineProperty(global.Object, "setPrototypeOf",
             {
                 value: function setPrototypeOf(target, prototype)
                 {
                     if (target == null)
-                        throw new global.TypeError()
+                        throw new TypeError
 
-                    if (!$IsObjectOrNull$(prototype))
-                        throw new global.TypeError()
+                    switch (typeof prototype)
+                    {
+                        default: throw new TypeError
 
-                    if (!$IsObjectOrNull$(target))
-                        return target
+                        case "object":
+                        case "function":
+                    }
 
-                    $SetPrototypeOf$.call(target, prototype)
+                    if (target === Object(target))
+                        setPrototype.call(target, prototype)
 
                     return target
                 },
                 writable: true,
                 configurable: true
             })
+
+            return global
         }
     }
-
-    ///
-
-    function $IsObjectOrNull$(value)
-    {
-        switch (typeof value)
-        {
-            case "object":
-            case "function":
-                return true
-        }
-
-        return false
-    }
-})()(this)
+})()
