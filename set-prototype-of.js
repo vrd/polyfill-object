@@ -11,7 +11,7 @@
             .getOwnPropertyDescriptor(Object.prototype, "__proto__")
             .set
 
-        module.exports = function(global)
+        var polyfill = function(global)
         {
             var TypeError = global.TypeError
 
@@ -42,4 +42,8 @@
             return global
         }
     }
+
+    module.exports =
+        polyfill(window) &&
+        polyfill
 })()

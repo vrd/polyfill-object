@@ -50,7 +50,7 @@
             return object[key]
     }
 
-    module.exports = function(global)
+    function polyfill(global)
     {
         Object.defineProperty(global.Object, "getPrototypeOf",
         {
@@ -76,4 +76,8 @@
 
         return global
     }
+
+    module.exports =
+        polyfill(window) &&
+        polyfill
 })()
