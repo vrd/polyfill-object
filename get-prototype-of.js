@@ -59,12 +59,12 @@
                 if (target !== Object(target))
                     throw new global.TypeError
 
-                var constructor = getPrototypeValue(object, "constructor")
+                var constructor = getPrototypeValue(target, "constructor")
                 if (constructor === Object(constructor))
                 {
                     var prototype = getOwnValue(constructor, "prototype")
                     if (prototype === Object(prototype))
-                        if (isPrototype.call(prototype, object))
+                        if (isPrototype.call(prototype, target))
                             return prototype
                 }
 
