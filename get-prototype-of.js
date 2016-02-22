@@ -3,93 +3,77 @@
     "use strict"
 
     if (typeof Object.getPrototypeOf == "function")
-        return Function.prototype
+        return module.exports = Object
 
-    return function(global)
+    var hasOwn = { }.hasOwnProperty
+    var isPrototype = { }.isPrototypeOf
+
+    function getPrototypeValue(object, key)
     {
-        var $Object$ = global.Object
-          , _ObjectPrototype_ = $Object$.prototype
+        if (!hasOwn.call(object, key))
+            return object[key]
 
-        var $Define$ = $Object$.defineProperty
-          , $GetDescriptor$ = $Object$.getOwnPropertyDescriptor
-
-        var $HasOwn$ = _ObjectPrototype_.hasOwnProperty
-          , $IsPrototype$ = _ObjectPrototype_.isPrototypeOf
-
-        ///
-
-        function $GetPrototypeValue$(object, name)
+        try
         {
-            if (!$HasOwn$.call(object, name)) return object[name]
-
             try
             {
-                try
-                {
-                    var descriptor = $GetDescriptor$(object, name)
-                }
-                catch (error)
-                {
-                    var value = object[name]
-                }
-
-                delete object[name]
-                return object[name]
+                var descriptor = Object.getOwnPropertyDescriptor
+                (
+                    object,
+                    key
+                )
             }
             catch (error)
             {
-                throw error
+                var value = object[key]
             }
-            finally
-            {
-                if (descriptor)
-                    if (descriptor.configurable)
-                        $Define$(object, name, descriptor)
-                else
-                    object[name] = value
-            }
-        }
 
-        function $GetPrototypeOf$(object)
+            delete object[key]
+            return object[key]
+        }
+        catch (error)
         {
-            var constructor = $GetPrototypeValue$(object, "constructor")
-            if ($IsPrimitive$(constructor)) return null
-
-            var prototype = constructor.prototype
-            if ($IsPrimitive$(prototype)) return null
-            if ($IsPrototype$.call(prototype, object)) return prototype
-
-            return null
+            throw error
         }
+        finally
+        {
+            if (descriptor)
+                Object.defineProperty(object, key, descriptor)
+            else
+                object[key] = value
+        }
+    }
 
-        ///
+    function getOwnValue(object, key)
+    {
+        if (hasOwn.call(object, key))
+            return object[key]
+    }
 
-        $Define$($Object$, "getPrototypeOf",
+    module.exports = function(global)
+    {
+        Object.defineProperty(global.Object, "getPrototypeOf",
         {
             value: function getPrototypeOf(target)
             {
-                if ($IsPrimitive$(target))
-                    throw new global.TypeError()
+                if (target !== Object(target))
+                    throw new global.TypeError
 
-                return $GetPrototypeOf$(target)
+                var constructor = getPrototypeValue(object, "constructor")
+                if (constructor === Object(constructor))
+                {
+                    var prototype = getOwnValue(constructor, "prototype")
+                    if (prototype === Object(prototype))
+                        if (isPrototype.call(prototype, object))
+                            return prototype
+                }
+
+                return null
             },
             writable: true,
             configurable: true
         })
+
+        return global
     }
-
-    ///
-
-    function $IsPrimitive$(value)
-    {
-        switch (typeof value)
-        {
-            case "boolean":
-            case "number":
-            case "string":
-                return true
-        }
-
-        return null == value
-    }
-})()(this)
+})()
