@@ -6,17 +6,6 @@
         return module.exports = Object
 
     var isEnumerable = { }.propertyIsEnumerable
-      , ownStrings = Object.getOwnPropertyNames
-      , ownSymbols = Object.getOwnPropertySymbols
-      , ownKeys = ownStrings
-
-    if (typeof ownSymbols == "function")
-    {
-        ownKeys = function(object)
-        {
-            return ownStrings(object).concat(ownSymbols(object))
-        }
-    }
 
     function polyfill(global)
     {
@@ -34,9 +23,8 @@
                     if (source == null) continue
 
                     var from = Object(source)
-                    var keys = ownKeys(from)
 
-                    keys.forEach(function(key)
+                    Reflect.ownKeys(from).forEach(function(key)
                     {
                         if (isEnumerable.call(from, key))
                             to[key] = from[key]
