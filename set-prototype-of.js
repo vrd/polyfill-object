@@ -5,7 +5,7 @@
     if (typeof Object.setPrototypeOf == "function")
         return module.exports = Object
 
-    if ("__proto__" in Object.prototype)
+    if ("__proto__" in { })
     {
         var setPrototype = Object
             .getOwnPropertyDescriptor(Object.prototype, "__proto__")
