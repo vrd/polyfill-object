@@ -3,7 +3,7 @@
     "use strict"
 
     if (typeof Object.setPrototypeOf == "function")
-        return module.exports = Object
+        return
 
     if ("__proto__" in { })
     {
@@ -11,39 +11,27 @@
             .getOwnPropertyDescriptor(Object.prototype, "__proto__")
             .set
 
-        var polyfill = function(global)
+        Object.defineProperty(Object, "setPrototypeOf",
         {
-            var TypeError = global.TypeError
-
-            Object.defineProperty(global.Object, "setPrototypeOf",
+            value: function setPrototypeOf(target, prototype)
             {
-                value: function setPrototypeOf(target, prototype)
+                if (target == null) throw new TypeError
+
+                switch (typeof prototype)
                 {
-                    if (target == null)
-                        throw new TypeError
+                    default: throw new TypeError
 
-                    switch (typeof prototype)
-                    {
-                        default: throw new TypeError
+                    case "object":
+                    case "function":
+                }
 
-                        case "object":
-                        case "function":
-                    }
+                if (target === Object(target))
+                    setPrototype.call(target, prototype)
 
-                    if (target === Object(target))
-                        setPrototype.call(target, prototype)
-
-                    return target
-                },
-                writable: true,
-                configurable: true
-            })
-
-            return global
-        }
+                return target
+            },
+            writable: true,
+            configurable: true
+        })
     }
-
-    module.exports =
-        polyfill(window) &&
-        polyfill
 })()

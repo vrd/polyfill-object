@@ -3,7 +3,7 @@
     "use strict"
 
     if (typeof Object.getPrototypeOf == "function")
-        return module.exports = Object
+        return
 
     var hasOwn = { }.hasOwnProperty
     var isPrototype = { }.isPrototypeOf
@@ -50,34 +50,25 @@
             return object[key]
     }
 
-    function polyfill(global)
+    Object.defineProperty(Object, "getPrototypeOf",
     {
-        Object.defineProperty(global.Object, "getPrototypeOf",
+        value: function(target)
         {
-            value: function getPrototypeOf(target)
+            if (target !== Object(target))
+                throw new TypeError
+
+            var constructor = getPrototypeValue(target, "constructor")
+            if (constructor === Object(constructor))
             {
-                if (target !== Object(target))
-                    throw new global.TypeError
+                var prototype = getOwnValue(constructor, "prototype")
+                if (prototype === Object(prototype))
+                    if (isPrototype.call(prototype, target))
+                        return prototype
+            }
 
-                var constructor = getPrototypeValue(target, "constructor")
-                if (constructor === Object(constructor))
-                {
-                    var prototype = getOwnValue(constructor, "prototype")
-                    if (prototype === Object(prototype))
-                        if (isPrototype.call(prototype, target))
-                            return prototype
-                }
-
-                return null
-            },
-            writable: true,
-            configurable: true
-        })
-
-        return global
-    }
-
-    module.exports =
-        polyfill(window) &&
-        polyfill
+            return null
+        },
+        writable: true,
+        configurable: true
+    })
 })()

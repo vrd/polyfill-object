@@ -3,44 +3,35 @@
     "use strict"
 
     if (typeof Object.assign == "function")
-        return module.exports = Object
+        return
 
     var isEnumerable = { }.propertyIsEnumerable
 
-    function polyfill(global)
+    Object.defineProperty(Object, "assign",
     {
-        Object.defineProperty(global.Object, "assign",
+        value: function assign(target, sources)
         {
-            value: function assign(target, sources)
+            if (target == null) throw new TypeError
+
+            var to = Object(target)
+
+            for (var index = 1; index < arguments.length ;)
             {
-                if (target == null) throw new global.TypeError
+                var source = arguments[index++]
+                if (source == null) continue
 
-                var to = Object(target)
+                var from = Object(source)
 
-                for (var index = 1; index < arguments.length ;)
+                Reflect.ownKeys(from).forEach(function(key)
                 {
-                    var source = arguments[index++]
-                    if (source == null) continue
+                    if (isEnumerable.call(from, key))
+                        to[key] = from[key]
+                })
+            }
 
-                    var from = Object(source)
-
-                    Reflect.ownKeys(from).forEach(function(key)
-                    {
-                        if (isEnumerable.call(from, key))
-                            to[key] = from[key]
-                    })
-                }
-
-                return to
-            },
-            writable: true,
-            configurable: true
-        })
-
-        return global
-    }
-
-    module.exports =
-        polyfill(window) &&
-        polyfill
+            return to
+        },
+        writable: true,
+        configurable: true
+    })
 })()
