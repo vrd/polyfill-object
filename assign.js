@@ -2,10 +2,9 @@
 {
     "use strict"
 
-    if (typeof Object.assign == "function")
-        return
+    if (typeof Object.assign == "function") return
 
-    var isEnumerable = { }.propertyIsEnumerable
+    var isEnumerable = {}.propertyIsEnumerable
 
     Object.defineProperty(Object, "assign",
     {
@@ -17,10 +16,8 @@
 
             for (var index = 1; index < arguments.length ;)
             {
-                var source = arguments[index++]
-                if (source == null) continue
-
-                var from = Object(source)
+                var from = arguments[index++]
+                if (from !== Object(from)) continue
 
                 Reflect.ownKeys(from).forEach(function(key)
                 {
